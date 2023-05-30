@@ -164,12 +164,14 @@ contract BlindBackrun is Ownable {
     ) external onlyOwner {
         for (uint i = 0; i < _swaps.length; i++) {
             SwapInfo memory swap = _swaps[i];
-            IERC20(WETH_ADDRESS).transfer(swap.pair, swap.amountIn);
+            
             IUniswapV2Pair pair = IUniswapV2Pair(swap.pair);
 
             if(swap.isZeroOut) {
+                IERC20(pair.token0()).transfer(swap.pair, swap.amountIn);
                 pair.swap(swap.amountOut, 0, address(this), "");
             } else {
+                IERC20(pair.token1()).transfer(swap.pair, swap.amountIn);
                 pair.swap(0, swap.amountOut, address(this), "");
             }
         }

@@ -34,7 +34,7 @@ contract BlindBackrun is Ownable {
     constructor(address _wethAddress) {
         WETH_ADDRESS = _wethAddress;
     }
-
+    
     /// @notice Executes an arbitrage transaction between two Uniswap V2 pairs.
     /// @notice Pair addresses need to be computed off-chain.
     /// @dev Only the contract owner can call this function.
